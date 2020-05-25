@@ -8,7 +8,10 @@ import (
 func main() {
 
     fmt.Printf("hello, universe!\n")
-    result := convert.SexagesimalToDecimal(2,30,45)
-    fmt.Printf("2h30m45s converted to decimal is: %f\n", result )
+    s := convert.RightAscension{2,30,40}
+
+    result := convert.RightAscensionToDecimal(s)
+
+    fmt.Printf("RA 2h30m45s converted to decimal is: %f\n", result )
 
 }

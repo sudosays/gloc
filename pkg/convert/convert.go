@@ -2,9 +2,51 @@
 // systems
 package convert
 
+import "math"
+
+type Declination struct {
+    degree, arcminute, arcsecond, posneg float64
+}
+
+type RightAscension struct {
+    hour, minute, second float64
+}
+
+type CelestialCoordinates struct {
+    ra RightAscension
+    dec Declination
+}
+
 // Converts units from sexagesimal to decimal equivalent.
-func SexagesimalToDecimal(hours, minutes, seconds float64) float64 {
+func DeclinationToDecimal(n Declination) float64 {
+    return (n.degree + n.posneg*n.arcminute/60 + n.posneg*n.arcsecond/3600)
+}
 
-    return (hours + minutes/60 + seconds/3600)
+// Converts units from decimal to sexagesimal equivalent.
+func DecimalToDeclination(d float64) Declination {
+    var posneg float64
+    if d >= 0 {
+        posneg = 1.0
+    } else {
+        posneg = -1.0
+    }
 
+    degrees := math.Trunc(d)
+    arcminutes := math.Trunc((d - degrees*posneg)*60.0*posneg)
+    arcseconds := math.Trunc((d - posneg*degrees - posneg*arcminutes/60.0)*3600.0*posneg)
+    return Declination{degrees, arcminutes, arcseconds, posneg}
+}
+
+// Converts units from right ascension to decimal
+func RightAscensionToDecimal(r RightAscension) float64 {
+    return (r.hour*15.0 + r.minute/4.0 + r.second/240.0)
+}
+
+// Converts units from decimal to right ascension 
+func DecimalToRightAscension(d float64) RightAscension {
+    hours := math.Trunc(d/15.0)
+    minutes := math.Trunc((d - hours*15.0)*4.0)
+    seconds := math.Trunc((d - hours*15.0 - minutes/4.0)*240.0)
+
+    return RightAscension{hours, minutes, seconds}
 }
