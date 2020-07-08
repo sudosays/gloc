@@ -3,7 +3,8 @@ package main
 import (
     "fmt"
     "flag"
-    "github.com/sudosays/gloc/pkg/convert"
+    "time"
+//    "github.com/sudosays/gloc/pkg/convert"
     "github.com/sudosays/gloc/pkg/localise"
 )
 
@@ -18,15 +19,14 @@ func main() {
     flag.Parse()
 
     fmt.Printf("hello, universe!\n")
-    s := convert.RightAscension{2.0,30.0,40.0}
 
-    result := convert.RightAscensionToDecimal(s)
-
-    fmt.Printf("RA 2h30m45s converted to decimal is: %f\n", result )
+    localise.CalculateCurrentSiderealTimeFromEpoch()
     
     if (interactive) {
         for {
+            fmt.Print("\u001b[F\u001b[0K")
             localise.CalculateCurrentSiderealTimeFromEpoch()
+            time.Sleep(50 * time.Millisecond)
         }
     }
 }
