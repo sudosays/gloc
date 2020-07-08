@@ -5,21 +5,21 @@ package convert
 import "math"
 
 type Declination struct {
-    degree, arcminute, arcsecond, posneg float64
+    Degree, Arcminute, Arcsecond, Posneg float64
 }
 
 type RightAscension struct {
-    hour, minute, second float64
+    Hour, Minute, Second float64
 }
 
 type CelestialCoordinates struct {
-    ra RightAscension
-    dec Declination
+    Ra RightAscension
+    Dec Declination
 }
 
 // Converts units from sexagesimal to decimal equivalent.
 func DeclinationToDecimal(n Declination) float64 {
-    return (n.degree + n.posneg*n.arcminute/60 + n.posneg*n.arcsecond/3600)
+    return (n.Degree + n.Posneg*n.Arcminute/60 + n.Posneg*n.Arcsecond/3600)
 }
 
 // Converts units from decimal to sexagesimal equivalent.
@@ -39,7 +39,7 @@ func DecimalToDeclination(d float64) Declination {
 
 // Converts units from right ascension to decimal
 func RightAscensionToDecimal(r RightAscension) float64 {
-    return (r.hour*15.0 + r.minute/4.0 + r.second/240.0)
+    return (r.Hour*15.0 + r.Minute/4.0 + r.Second/240.0)
 }
 
 // Converts units from decimal to right ascension 
