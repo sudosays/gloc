@@ -2,7 +2,10 @@
 // systems
 package convert
 
-import "math"
+import (
+    "math"
+    "time"
+)
 
 type Declination struct {
     Degree, Arcminute, Arcsecond, Posneg float64
@@ -49,4 +52,9 @@ func DecimalToRightAscension(d float64) RightAscension {
     seconds := math.Trunc((d - hours*15.0 - minutes/4.0)*240.0)
 
     return RightAscension{hours, minutes, seconds}
+}
+
+func ToAltAzimuth(coordinates CelestialCoordinates, observationLocation ) {
+
+
 }
