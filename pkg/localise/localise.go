@@ -21,16 +21,9 @@ type GeographicalCoordinates struct {
 // CalculateCurrentSiderealTimeFromEpoch gives the current sidereal time in
 // degrees at the given longitude as of time.Now().
 func CalculateCurrentSiderealTimeFromEpoch(longitude float64) float64 {
-    epoch, _ := time.Parse(time.RFC3339, EpochTime)
-    t := time.Now()
+    decimalDays := DecimalDaysSinceEpoch(time.Now())
 
-    utc := float64(t.UTC().Hour()) + float64(t.UTC().Minute())/1440 + float64(t.UTC().Second())/86400
-
-    diff := t.Sub(epoch)
-
-    decimalDays := diff.Hours()/24
-
-    localSiderealTime := 100.46 + 0.985647 * decimalDays + longitude + float64(15)*utc
+    localSiderealTime := 100.46 + 0.985647 * decimalDays + longitude
     localSiderealTime = math.Mod(localSiderealTime, 360)
 
     if (localSiderealTime < 0) {
@@ -40,4 +33,14 @@ func CalculateCurrentSiderealTimeFromEpoch(longitude float64) float64 {
     return localSiderealTime
 }
 
+func DecimalDaysSinceEpoch(t time.Time) float64 {
 
+    epoch, _ := time.Parse(time.RFC3339, EpochTime)
+
+    diff := t.Sub(epoch)
+
+    decimalDays := diff.Hours()/24
+
+    return decimalDays
+
+}
