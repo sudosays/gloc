@@ -4,7 +4,6 @@ package convert
 
 import (
     "math"
-    "time"
 )
 
 type Declination struct {
@@ -54,7 +53,7 @@ func DecimalToRightAscension(d float64) RightAscension {
     return RightAscension{hours, minutes, seconds}
 }
 
-func ToAltAzimuth(coordinates CelestialCoordinates, observationLocation ) {
+/*func ToAltAzimuth(coordinates CelestialCoordinates, observationLocation ) {
 
 
-}
+}*/

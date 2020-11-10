@@ -2,14 +2,16 @@ package convert
 
 import(
     "testing"
+    "math"
 )
 
+const errorTolerance = 0.001
 
 func TestConvertDeclinationToDecimal(t *testing.T) {
     s := Declination{2,30,45,1}
     want := 2.5125
     got := DeclinationToDecimal(s)
-    if got != want {
+    if math.Abs(got - want) > errorTolerance {
         t.Errorf("DeclinationToDecimal(2,30,45) = %f; want %f", got, want)
     }
 }
@@ -26,14 +28,14 @@ func TestConvertRightAscensionToDecimal(t *testing.T) {
     r := RightAscension{1,37,25}
     want := 24.354167
     got := RightAscensionToDecimal(r)
-    if got != want {
+    if math.Abs(got - want) > errorTolerance {
         t.Errorf("Converting RightAscension to Decimal RA(1,37,25) = %f; want %f", got, want)
     }
 
     r = RightAscension{23,59,59}
     want = 359.9958
     got = RightAscensionToDecimal(r)
-    if got != want {
+    if math.Abs(got - want) > errorTolerance {
         t.Errorf("Converting RightAscension to Decimal RA(23,59,59) = %f; want %f", got, want)
     }
 }
